@@ -1,0 +1,67 @@
+.code-editor {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+
+  font-family: monospace;
+  font-size: inherit;
+  line-height: 1.2;
+
+  padding: 1em 0 2em 0;
+
+  --doodlit-editor-margin-width: 3em;
+}
+
+.code-editor textarea {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--doodlit-editor-margin-width);
+  width: calc(100% - var(--doodlit-editor-margin-width));
+  height: 100%;
+  z-index: 1;
+  overflow: auto;
+
+  appearance: none;
+  resize: none;
+  margin: 0;
+  padding: inherit;
+  border: none;
+  outline: none;
+
+  background-color: transparent;
+  color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.code-editor dl,
+.code-editor dt,
+.code-editor dd {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.code-editor dl {
+  user-select: none;
+  display: grid;
+  grid-template-columns: var(--doodlit-editor-margin-width) 1fr;
+  transform: translateY(calc(-1 * var(--doodlit-scroll-top)));
+}
+
+.code-editor dt {
+  text-align: right;
+  padding-right: 1em;
+}
+
+.code-editor code {
+  display: block;
+  transform: translateX(calc(-1 * var(--doodlit-scroll-left)));
+}

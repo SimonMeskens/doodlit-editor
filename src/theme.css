@@ -1,0 +1,48 @@
+:root {
+  --doodlit-theme-red: #d34;
+  --doodlit-theme-blue: #05c;
+  --doodlit-theme-green: #2b1;
+  --doodlit-theme-orange: #f74;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --doodlit-theme-background: #eee;
+    --doodlit-theme-text: #000;
+    --doodlit-theme-text-muted: #666;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --doodlit-theme-background: #111;
+    --doodlit-theme-text: #fff;
+    --doodlit-theme-text-muted: #aaa;
+  }
+}
+
+.code-editor {
+  background-color: var(--doodlit-theme-background);
+  color: var(--doodlit-theme-text);
+}
+
+.code-editor .comment,
+.code-editor code::before {
+  color: var(--doodlit-theme-text-muted);
+}
+
+.code-editor .keyword {
+  color: var(--doodlit-theme-red);
+}
+
+.code-editor .number {
+  color: var(--doodlit-theme-blue);
+}
+
+.code-editor .string {
+  color: var(--doodlit-theme-green);
+}
+
+.code-editor .punctuation {
+  color: var(--doodlit-theme-orange);
+}
