@@ -1,2 +1,4 @@
-# doodlit-editor
-A tiny HTML5 editor
+# Doodlit Editor
+
+A tiny HTML5 editor.
+
