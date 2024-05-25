@@ -62,10 +62,11 @@ export const createEditor = (
     }
   };
 
-  textarea.addEventListener(
-    "input",
-    throttle((e) => update(e.target))
-  );
+  const handle = throttle((e) => update(e.target));
+  textarea.addEventListener("input", handle);
+  textarea.addEventListener("change", handle);
+  textarea.addEventListener("keyup", handle);
+
   update(textarea);
 
   textarea.addEventListener("scroll", (e) => {
