@@ -16,7 +16,8 @@ export const createEditor = (
       }
       return line.textContent;
     })
-    .reduce((acc, line) => acc + "\n" + line);
+    .reduce((acc, line) => (acc.push(line), acc), [])
+    .join("\n");
 
   tabSize ||= 4;
 
