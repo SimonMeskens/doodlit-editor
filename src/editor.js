@@ -32,39 +32,41 @@ export const createEditor = (
 
   const list = root.appendChild(document.createElement("dl"));
 
+  const update = (textarea) => {
+    const lines = textarea.value.split("\n");
+    const elements = Array.from(list.childNodes);
+
+    // Expand the list to fit the number of lines
+    for (let i = elements.length / 2; i < lines.length; i++) {
+      list.appendChild(document.createElement("dt"));
+      const item = document.createElement("dd");
+      item.appendChild(document.createElement("code"));
+      list.appendChild(item);
+    }
+
+    // Shrink the list to fit the number of lines
+    for (let i = lines.length; i < elements.length / 2; i++) {
+      list.removeChild(elements[i * 2]);
+      list.removeChild(elements[i * 2 + 1]);
+    }
+
+    // Update the list with the new lines
+    for (let i = 0; i < lines.length; i++) {
+      const items = list.childNodes;
+
+      const number = items[i * 2];
+      const code = items[i * 2 + 1].firstChild;
+
+      number.textContent = i + 1;
+      code.innerHTML = highlight(lines[i].replace(/\t/g, " ".repeat(4)));
+    }
+  };
+
   textarea.addEventListener(
     "input",
-    throttle((e) => {
-      const lines = e.target.value.split("\n");
-      const elements = Array.from(list.childNodes);
-
-      // Expand the list to fit the number of lines
-      for (let i = elements.length / 2; i < lines.length; i++) {
-        list.appendChild(document.createElement("dt"));
-        const item = document.createElement("dd");
-        item.appendChild(document.createElement("code"));
-        list.appendChild(item);
-      }
-
-      // Shrink the list to fit the number of lines
-      for (let i = lines.length; i < elements.length / 2; i++) {
-        list.removeChild(elements[i * 2]);
-        list.removeChild(elements[i * 2 + 1]);
-      }
-
-      // Update the list with the new lines
-      for (let i = 0; i < lines.length; i++) {
-        const items = list.childNodes;
-
-        const number = items[i * 2];
-        const code = items[i * 2 + 1].firstChild;
-
-        number.textContent = i + 1;
-        code.innerHTML = highlight(lines[i].replace(/\t/g, " ".repeat(4)));
-      }
-    })
+    throttle((e) => update(e.target))
   );
-  textarea.dispatchEvent(new Event("input"));
+  update(textarea);
 
   textarea.addEventListener("scroll", (e) => {
     root.style.setProperty("--doodlit-scroll-left", e.target.scrollLeft + "px");
